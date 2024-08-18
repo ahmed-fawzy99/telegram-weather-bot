@@ -29,6 +29,7 @@ const store: SessionStore<SessionData> = Postgres({
 });
 
 const bot: Telegraf<MyContext> = new Telegraf<MyContext>(process.env.BOT_TOKEN as string);
+bot.use(session({store}));
 
 const commands= [
     {command: 'reconfigure', description: 'Reconfigure your settings (location + temperature unit).'},
@@ -88,9 +89,9 @@ const scene = new Scenes.WizardScene<Scenes.WizardContext>(
 const stage = new Scenes.Stage<Scenes.WizardContext>([scene]);
 // @ts-ignore
 bot.use(stage.middleware());
-bot.use(session({store}));
 
 // @ts-ignore
+
 bot.command(['start', 'restart', 'reconfigure'], ctx => ctx.scene.enter('configurer'));
 
 // @ts-ignore
