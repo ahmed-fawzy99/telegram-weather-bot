@@ -121,7 +121,7 @@ bot.hears(/.*/, async (ctx) => {
 // Run the scheduled updates every 20 seconds
 initDb().then((res) => {
     console.log(res);
-    scheduleJob('* * * * *', function(){
+    scheduleJob('0 6 * * *', function(){
         runJob(bot).then((res) => console.log(res)).catch(e => console.error('Error starting scheduled updates', e));
     });
 }).catch(e => console.error('Error connecting to the database', e));
